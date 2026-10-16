@@ -1,6 +1,6 @@
 # FreelanceHub — Bakeoff 01
 
-A local, server-rendered prototype for freelancers and their clients. Built by Nathan Escujuri with AI assistance for WDD 430. The original specification is in `docs/FreelanceHub_Project_Specification.docx`.
+A local, server-rendered prototype for freelancers and their clients. Built by Nathan Escujuri for WDD 430. The original specification is in `docs/FreelanceHub_Project_Specification.docx`.
 
 ## Run locally
 
@@ -47,9 +47,13 @@ Passwords use salted scrypt hashes. Cookies contain opaque random session tokens
 - Role-specific overview, project details, and conversation; authors and owners may edit/delete messages.
 - Responsive navigation, layouts, forms, empty states, and validation feedback.
 
+## Deploy to Render
+
+Use the included `render.yaml` on branch `bakeoff-1`, or follow the dashboard settings in [the Render deployment guide](docs/RENDER_DEPLOYMENT.md). The default is a **free classroom demo with temporary data**. A paid persistent-disk option is documented for keeping accounts and projects across restarts. The app uses `PORT` automatically and accepts `SQLITE_PATH` to select its database location. Your local database is excluded from Git and is not uploaded to Render.
+
 ## Prototype limits and next steps
 
-This is a single-process local prototype. SQLite requires a writable, persistent disk; do not deploy it to ephemeral/serverless storage. Email delivery, password reset, email verification, login rate limiting, session management UI, and invitation expiry are future work. Invitations are shared manually; an unaccepted invitation remains valid until used or its client is archived. A linked client email can be updated as contact information; the user's login email does not change.
+This is a single-process prototype. Durable SQLite data requires a writable, persistent disk; the free Render configuration intentionally uses temporary storage for disposable classroom testing. Email delivery, password reset, email verification, login rate limiting, session management UI, and invitation expiry are future work. Invitations are shared manually; an unaccepted invitation remains valid until used or its client is archived. A linked client email can be updated as contact information; the user's login email does not change.
 
 The proposal's richer profile details, project start dates, task descriptions/priorities/completion timestamps, archive restoration/filtering, and message edited timestamps are not yet implemented. Archiving hides projects from the active overview but retains them in project history and keeps participant discussion available. Client archiving also removes their projects from the active overview. Contact editing does not reassign linked accounts. Files, approvals, invoicing, payments, notifications, and calendars are deferred as specified.
 

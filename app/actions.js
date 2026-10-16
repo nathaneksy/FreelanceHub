@@ -10,7 +10,7 @@ import {
   verifyPassword,
   tokenHash,
   projectFor,
-  db,
+  getDb,
 } from "../lib/db";
 import { requireUser } from "../lib/auth";
 const text = (f, k, max = 200) =>
@@ -48,6 +48,7 @@ export async function authenticate(f) {
         : null;
     if (invite && (!client || client.email.toLowerCase() !== email))
       fail("/login", "Invitation is invalid or does not match your email.");
+    const db = getDb();
     db.exec("BEGIN IMMEDIATE");
     try {
       const result = run(

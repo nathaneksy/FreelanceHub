@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+const baseUrl = process.env.E2E_BASE_URL || "http://127.0.0.1:3000";
 test("freelancer and client journeys with workspace isolation and mobile layout", async ({
   browser,
 }) => {
@@ -9,7 +10,7 @@ test("freelancer and client journeys with workspace isolation and mobile layout"
   const page = await owner.newPage(),
     cp = await client.newPage();
   async function register(p, name, email, invite = "") {
-    await p.goto("http://127.0.0.1:3000/login");
+    await p.goto(`${baseUrl}/login`);
     await p.getByText("New here? Create an account").click();
     await p.getByLabel("Your name", { exact: true }).fill(name);
     await p.getByLabel("Email", { exact: true }).fill(email);
@@ -85,7 +86,7 @@ test("freelancer and client journeys with workspace isolation and mobile layout"
     headers: {
       "Content-Type": captured.headers()["content-type"],
       "Next-Action": captured.headers()["next-action"],
-      Origin: "http://127.0.0.1:3000",
+      Origin: new URL(baseUrl).origin,
     },
   });
   expect(blocked.headers()["x-action-redirect"]).toContain(
@@ -119,7 +120,7 @@ test("freelancer and client journeys with workspace isolation and mobile layout"
     fullPage: true,
   });
   await page.setViewportSize({ width: 1440, height: 1000 });
-  await page.goto("http://127.0.0.1:3000/");
+  await page.goto(`${baseUrl}/`);
   await page.screenshot({
     path: "test-results/desktop-dashboard.png",
     fullPage: true,

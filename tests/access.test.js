@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 process.env.TEST_DB = ":memory:";
-const { db, run, projectFor, tasksFor, hashPassword, verifyPassword } =
+const { run, projectFor, tasksFor, hashPassword, verifyPassword } =
   await import("../lib/db.js");
 test("passwords are salted and verified", () => {
   const a = hashPassword("correct-horse-battery");
